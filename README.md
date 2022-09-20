@@ -57,13 +57,28 @@ in the game Wolfenstein (1992), such as calculations of distances, height of wal
 
 ---
 
-Open the /Raycasting_JS/index.html file with a web browser.
+##### Compile :
 
 ---
 
-**Game Controller Keys*.
+> the browser will be responsible of compiling the js-version.
+Open the /Raycasting_JS/index.html file with a web browser.
 
-**Move:** Arrow keys.
+├─ Rycasting_JS
+.
+.
+├── index.html
+├── styles.css
+├── p5.js
+├── raycast.js
+.
+.
+
+---
+
+##### Game Controller Keys :
+
+> **Move:** Arrow keys.
 
 ---
 
@@ -71,7 +86,7 @@ Open the /Raycasting_JS/index.html file with a web browser.
 
 ---
 
-Same concepts codded in JS using C and SDL-2 this time.
+> Same concepts codded in JS using C and SDL-2 this time.
 
 ---
 
