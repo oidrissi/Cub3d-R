@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 08:42:29 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/20 10:41:28 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/20 11:53:42 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,24 @@
 * Check if argument value of argv[1] has a .cub extension.
 *
 * read_buffer() : read content of the map with gnl.
+*
+* mlx_core() : 
+*
 */
+
+int	mlx_core(t_variables *vars)
+{
+	printf("Starting mlx ...\n");
+	if (init_vars_class(vars))
+	{
+		free_all(vars);
+		exit_perror("Error : malloc failed\n");
+	}
+	mlx_initialize(vars);
+	mlx_hook(vars->window, 2, 1L << 0, key_hook, vars);
+	mlx_hook(vars->window, 17, 1L << 17, close_window, vars);
+	return (0x0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -37,5 +54,6 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (read_buffer(argv[1], &vars.map) != 0x0)
 		return (EXIT_FAILURE);
+	mlx_core(&vars);
 	return (EXIT_SUCCESS);
 }

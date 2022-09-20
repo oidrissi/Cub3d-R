@@ -1,41 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/20 08:45:59 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/20 11:45:54 by ablaamim         ###   ########.fr       */
+/*   Created: 2022/09/20 11:31:31 by ablaamim          #+#    #+#             */
+/*   Updated: 2022/09/20 11:53:59 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
 /*
- * Return with custom error code :
+ * Init mlx :
 */
 
-int	perror_return(char *str, int exit_code)
+void	mlx_initialize(t_variables *vars)
 {
-	if (str == 0x0)
-		perror ("cub3D");
-	else
-		perror(str);
-	return(exit_code);
-}
-
-int	exit_perror(char *str)
-{
-	if (str == 0x0)
-		perror("Cub3D");
-	else
-		perror("Cub3D");
-	return (EXIT_FAILURE);
-}
-
-int	return_error(char *string, int exit_code)
-{
-	write(2, string, ft_strlen(string));
-	return(exit_code);
+	vars->mlx = mlx_init();
+	vars->image.image = mlx_new_image(vars->mlx, WIN_WIDTH, WIN_HEIGHT);
+	vars->image.addr = mlx_get_data_addr(vars->image.image, &vars->image.bpp, &vars->image.sz_l, &vars->image.endian);
+	vars->window = mlx_new_window(vars->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3d");
 }

@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 08:20:56 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/20 10:31:23 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/20 11:56:13 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,29 @@
 
 # include <mlx.h>
 
+# define USAGE "Usage : ./cub3D [map.cub]\n"
+# define MAP_EXTENSION "Error : Invalid map extension\n"
+# define ERR -1
+# define MAP_EMPTY "Error : empty map\n"
+# define FATAL_ERROR "Error : fatal error\n"
+
+/*
+ * RESOLUTOON : 
+*/
+# ifndef WIN_WIDTH
+#  define WIN_WIDTH 1200
+# endif
+# ifndef WIN_HEIGHT
+#  define WIN_HEIGHT 720
+# endif
+
+/*
+ * Keyhook defines :
+*/
+
+# define KEY_ESC 53
+# define KEY_R 15
+
 /*s_map class :
  *
  * *floor_rgb : floor RGB colors.
@@ -50,11 +73,6 @@
  *
 */
 
-# define USAGE "Usage : ./cub3D [map.cub]\n"
-# define MAP_EXTENSION "Error : Invalid map extension\n"
-# define ERR -1
-# define MAP_EMPTY "Error : empty map\n"
-# define FATAL_ERROR "Error : fatal error\n"
 
 typedef struct s_map
 {
@@ -71,10 +89,29 @@ typedef struct s_map
 	char	*celling_rgb;
 }	t_map;
 
+/*
+ * Image class :
+*/
+
+typedef struct s_image
+{
+	void	*image;
+	char	*addr;
+	int		bpp;
+	int		sz_l;
+	int		endian;
+}	t_image;
+
+/*
+ * Data to init mlx :
+*/
 
 typedef struct s_variables
 {
 	t_map	map;
+	t_image	image;
+	void	*mlx;
+	void	*window;
 }	t_variables;
 
 /*
@@ -106,5 +143,20 @@ char	*ft_strdup(char *str);
 char	*ft_strcpy(char *dest, char *src);
 int		ft_strncmp(char *s1, char *s2, int n);
 
+/*
+ * mlx core functions :
+*/
+
+int		mlx_core(t_variables *vars);
+int		init_vars_class(t_variables *vars);
+int		exit_perror(char *str);
+void	free_all(t_variables *vars);
+void	mlx_initialize(t_variables *vars);
+
+/*
+ * KEY HOOKS :
+*/
+
+int	key_hook(int key_code, t_variables *vars);
 
 #endif

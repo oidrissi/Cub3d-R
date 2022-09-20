@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/20 08:45:59 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/20 11:45:54 by ablaamim         ###   ########.fr       */
+/*   Created: 2022/09/20 11:44:45 by ablaamim          #+#    #+#             */
+/*   Updated: 2022/09/20 11:49:09 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-/*
- * Return with custom error code :
-*/
-
-int	perror_return(char *str, int exit_code)
+void	free_vars(t_variables *vars)
 {
-	if (str == 0x0)
-		perror ("cub3D");
-	else
-		perror(str);
-	return(exit_code);
+	(void) vars;
 }
 
-int	exit_perror(char *str)
+void	free_all(t_variables *vars)
 {
-	if (str == 0x0)
-		perror("Cub3D");
-	else
-		perror("Cub3D");
-	return (EXIT_FAILURE);
+	mlx_destroy_window(vars->mlx, vars->window);
+	mlx_destroy_image(vars->mlx, vars->image.image);
+	free_vars(vars);
 }
 
-int	return_error(char *string, int exit_code)
+void	reset_variables(t_variables *vars)
 {
-	write(2, string, ft_strlen(string));
-	return(exit_code);
+	(void) vars;
+}
+
+int	init_vars_class(t_variables *vars)
+{
+	reset_variables(vars);
+	return (0x0);
 }
