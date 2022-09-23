@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 08:20:56 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/20 11:56:13 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:04:34 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define ERR -1
 # define MAP_EMPTY "Error : empty map\n"
 # define FATAL_ERROR "Error : fatal error\n"
+# define QUIT_MLX "Mlx closing ; Quit\n"
 
 /*
  * RESOLUTOON : 
@@ -54,8 +55,10 @@
  * Keyhook defines :
 */
 
-# define KEY_ESC 53
-# define KEY_R 15
+# define ESC_KEY 53
+# define R_KEY 15
+
+# define MALLOC_ERR "Error : System malloc() failed\n"
 
 /*s_map class :
  *
@@ -77,7 +80,10 @@
 typedef struct s_map
 {
 	int		resolution[2];
+	//char	**map; //GRID
 	char	**buffered;
+	char	starting_orientation;
+	int		position_index;
 	int		width;
 	int		height;
 	char	*north;
@@ -87,10 +93,21 @@ typedef struct s_map
 	char	*sprite;
 	char	*floor_rgb;
 	char	*celling_rgb;
+	//int		lines;
+	//int		index;
+	//int		counter;
+	//float	player_position[2];
 }	t_map;
 
 /*
- * Image class :
+ * Image class : mlx image struct :
+ *
+ * *img = pointer to image.
+ * *addr = pointer to the pixel data.
+ * bpp = bits per pixel.
+ * line_length = len of a line of pixels in *addr.
+ * endian = endian type (0 = small endian, 1 = big endian)
+ *
 */
 
 typedef struct s_image
@@ -98,7 +115,7 @@ typedef struct s_image
 	void	*image;
 	char	*addr;
 	int		bpp;
-	int		sz_l;
+	int		line_length;
 	int		endian;
 }	t_image;
 
@@ -158,5 +175,6 @@ void	mlx_initialize(t_variables *vars);
 */
 
 int	key_hook(int key_code, t_variables *vars);
+int	close_window(t_variables *vars);
 
 #endif

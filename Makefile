@@ -6,7 +6,7 @@
 #    By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 08:14:27 by ablaamim          #+#    #+#              #
-#    Updated: 2022/09/20 10:36:15 by ablaamim         ###   ########.fr        #
+#    Updated: 2022/09/23 16:31:24 by ablaamim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,9 @@ SRCS = ./sources/main.c \
 	   ./sources/error_handling.c \
 	   ./sources/map_parser.c \
 	   ./sources/get_next_line.c \
+	   ./sources/tools.c \
+	   ./sources/mlx_hooks.c \
+	   ./sources/mlx_init.c \
 
 OBJ = $(patsubst %.c,%.o,$(SRCS))
 
