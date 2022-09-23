@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 08:20:56 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/23 17:04:34 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:18:22 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,39 @@
 # define ERR -1
 # define MAP_EMPTY "Error : empty map\n"
 # define FATAL_ERROR "Error : fatal error\n"
-# define QUIT_MLX "Mlx closing ; Quit\n"
-
+# define QUIT_MLX "Mlx closing : Quit Process ...\n\n"
+# define MALLOC_ERR "Error : System malloc() failed\n"
+# define TEXTURE_ERR "Error : Invalid texture file\n"
 /*
  * RESOLUTOON : 
 */
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH 1200
+#  define WIN_WIDTH 1080
 # endif
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 720
+#  define WIN_HEIGHT 1024
 # endif
 
 /*
- * Keyhook defines :
+ * Keyhook defines keypress / keyrelease are handled by mlx_key_hook():
 */
 
 # define ESC_KEY 53
-# define R_KEY 15
+//# define R_KEY 15
+# define KEY_UP 126
+# define KEY_DOWN 125
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define W_KEY 13
+# define S_KEY 1
+# define A_KEY 0
+# define D_KEY 2
 
-# define MALLOC_ERR "Error : System malloc() failed\n"
+/*
+ * Colors MACROS :
+*/
+
+# define WHITE 0xFFFFFF
 
 /*s_map class :
  *
@@ -80,7 +93,7 @@
 typedef struct s_map
 {
 	int		resolution[2];
-	//char	**map; //GRID
+	char	**map; //GRID
 	char	**buffered;
 	char	starting_orientation;
 	int		position_index;
@@ -93,10 +106,10 @@ typedef struct s_map
 	char	*sprite;
 	char	*floor_rgb;
 	char	*celling_rgb;
-	//int		lines;
-	//int		index;
-	//int		counter;
-	//float	player_position[2];
+	int		map_lines;
+	int		index;
+	int		counter;
+	float	player_position[2];
 }	t_map;
 
 /*
@@ -127,6 +140,7 @@ typedef struct s_variables
 {
 	t_map	map;
 	t_image	image;
+	t_image	minimap;
 	void	*mlx;
 	void	*window;
 }	t_variables;
@@ -140,7 +154,13 @@ int	return_error(char *string, int exit_code);
 int	check_extension(char *string);
 int	read_buffer(char *str, t_map *map);
 int	perror_return(char *str, int exit_code);
-int	buffer_fill(char *str, int lines, t_map *map);
+int	buffer_fill(char *str, int map_lines, t_map *map);
+
+/*
+ * PARSER METHOD :
+*/
+
+int	parse_data(t_map *map, char *argv);
 
 /*
  * Read map character by character via get_next_line with one buffersize.
@@ -154,11 +174,16 @@ char	*ft_get_next_line(int fd);
  * Libft utils :
 */
 
-int		ft_strlen(char *str);
+size_t	ft_strlen(char const *str);
 char	*ft_strrev(char *str);
 char	*ft_strdup(char *str);
 char	*ft_strcpy(char *dest, char *src);
 int		ft_strncmp(char *s1, char *s2, int n);
+void	*ft_memset(void *s, int c, size_t n);
+void	ft_bzero(void *memory, size_t size);
+char	*ft_substr(char const *s, unsigned int start, size_t size);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+
 
 /*
  * mlx core functions :
@@ -171,10 +196,22 @@ void	free_all(t_variables *vars);
 void	mlx_initialize(t_variables *vars);
 
 /*
- * KEY HOOKS :
+ * MLX HOOKS :
 */
 
 int	key_hook(int key_code, t_variables *vars);
 int	close_window(t_variables *vars);
+
+/*
+ * PUT PIXEL TO IMAGE / RENDER.
+*/
+
+void	ft_draw(t_variables *vars);
+
+/*
+ * MLX TRAINING AS A FIRST QUEST : draw a menu!!
+*/
+
+void	ft_render_menu(t_variables *vars);
 
 #endif

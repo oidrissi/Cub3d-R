@@ -6,15 +6,15 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 08:49:15 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/20 09:38:34 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:09:52 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int	ft_strlen(char *str)
+size_t	ft_strlen(char const *str)
 {
-	int	len;
+	size_t	len;
 
 	len = 0x0;
 	while (*str++)

@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 09:12:18 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/20 10:40:38 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:10:08 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,28 @@
  *
 */
 
-int	buffer_fill(char *file, int lines, t_map *map)
+int	buffer_fill(char *file, int map_lines, t_map *map)
 {
-	int	fd;
-	int	i;
+	int		fd;
+	int		i;
+	char	*s;
 
 	i = -1;
-	map->buffered = (char **) malloc(sizeof(char *) * (lines + 0x1));
+	map->buffered = (char **) malloc(sizeof(char *) * (map_lines + 0x1));
 	if (map->buffered == 0x0)
 		return (EXIT_FAILURE);
 	fd = open(file, O_RDONLY);
 	if (fd <= ERR)
 		return (EXIT_FAILURE);
-	while (++i < lines)
+	while (++i < map_lines)
 	{
-		map->buffered[i] = ft_get_next_line(fd);
+		s = ft_get_next_line(fd);
 		//printf("BUFFER = %s\n", map->buffered[i]);
+		map->buffered[i] = ft_substr(s, 0x0, ft_strlen(s) - 1);
 	}
-	return (0x0	);
+	map->buffered[i] = 0x0;
+	close(fd);
+	return (0x0);
 }
 
 /*
@@ -45,24 +49,18 @@ int	read_buffer(char *str, t_map *map)
 {
 	char	*auxiliar;
 	int		fd;
-	int		lines;
 
-	lines = 0x0;
 	fd = open(str, O_RDONLY);
 	if (fd <= ERR)
 		return (perror_return(str, EXIT_FAILURE));
 	auxiliar = ft_get_next_line(fd);
 	while (auxiliar)
 	{
-		++lines;
+		++map->map_lines;
 		free(auxiliar);
 		auxiliar = ft_get_next_line(fd);
 	}
 	close(fd);
-	if (lines == 0x0)
-		return (return_error(MAP_EMPTY, EXIT_FAILURE));
-	if (buffer_fill(str, lines, map) != 0x0)
-		return (return_error(FATAL_ERROR, EXIT_FAILURE));
 	return (0x0);
 }
 
