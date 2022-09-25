@@ -32,7 +32,7 @@
 
 /*Minilibx library*/
 
-# include <mlx.h>
+// # include <mlx.h>
 
 # define USAGE "Usage : ./cub3D [map.cub]\n"
 # define MAP_EXTENSION "Error : Invalid map extension\n"

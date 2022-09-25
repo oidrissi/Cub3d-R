@@ -85,3 +85,83 @@ int	check_extension(char *string)
 	free(temp);
 	return (0x0);
 }
+
+
+/*
+ * Omar Parser
+ * 1 - Checking the extension of the file
+ * It should end with .cub
+ * It can have multiple .cub but it should end with .cub and '\0' and not start with .
+*/
+
+int	check_extension(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	while (str[i] != '.')
+	{
+		i--;
+		if (i == 0)
+			return (0);
+	}
+	if (str[i + 1] == 'c' && str[i + 2] == 'u' && str[i + 3] == 'b' && str[i + 4] == '\0')
+		return (return_error(MAP_EXTENSION, EXIT_FAILURE));
+	return (0);
+}
+
+/*
+ * Checks that the top part of the file is formatted correctly.
+*/
+
+
+void retrieve_textures(t_variables vars, char *file)
+{
+	int		fd;
+	char	*line;
+	int		i;
+	
+	i = 0;
+	fd = open(file, O_RDONLY);
+	if (fd <= ERR)
+		return (perror_return(file, EXIT_FAILURE));
+	line = ft_get_next_line(fd);
+	check_north_texture(vars, line);
+	free(line);
+	line = ft_get_next_line(fd);
+	retrieve_south_texture(vars, line);
+	free(line);
+	line = ft_get_next_line(fd);
+	retrieve_west_texture(vars, line);
+	free(line);
+	line = ft_get_next_line(fd);
+	retrieve_east_texture(vars, line);
+	free(line);
+}
+
+void retrieve_north_texture(char *str)
+{
+}
+
+void retrieve_south_texture(char *str)
+{
+
+}
+
+void retrieve_west_texture(char *str)
+{
+
+}
+
+void retrieve_east_texture(char *str)
+{
+
+}
+
+
+bool check_top(char *str)
+{
+	
+}
